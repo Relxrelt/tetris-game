@@ -1,0 +1,16 @@
+.gameContainer {
+  display: grid;
+  grid-template-columns: repeat(10, 32px);
+  grid-template-rows: repeat(20, 32px);
+  gap: 5px;
+  width: 800px;
+  height: 800px;
+}
+
+.tile {
+  background-color: lightgray;
+}
+
+.element {
+  background-color: rgb(255, 42, 42);
+}

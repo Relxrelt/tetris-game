@@ -1,23 +1,31 @@
 let boardArray = generateBoardArray();
 
-class TShape {
-  constructor(
-    position = [
-      [5, 6],
-      [5, 7],
-      [5, 8],
-      [4, 7],
-    ],
-    isMoving = true,
-    pivotIndex = 1
-  ) {
+const positions = {
+  I: [[]],
+  J: [[]],
+  L: [[]],
+  O: [[]],
+  S: [[]],
+  T: [
+    [1, 5],
+    [1, 6],
+    [1, 7],
+    [2, 6],
+  ],
+  Z: [[]],
+};
+
+class Tetromino {
+  constructor(position, name, isMoving = true, pivotIndex = 1) {
     this.position = position;
     this.isMoving = isMoving;
     this.pivotIndex = pivotIndex;
+    this.name = name;
   }
 }
 
-let currentElement = new TShape();
+let tshape = new Tetromino(positions.T, "tshape");
+let currentElement = tshape;
 
 function rotate() {
   let newPosition = JSON.parse(JSON.stringify(currentElement.position));
@@ -26,7 +34,6 @@ function rotate() {
     item[0] -= pivot[0];
     item[1] -= pivot[1];
 
-
     let tempVariable = item[0];
     item[0] = item[1];
     item[1] = -tempVariable;
@@ -34,12 +41,13 @@ function rotate() {
     item[0] += pivot[0];
     item[1] += pivot[1];
 
-    if (item[1] < 1 || item[1] > 10) {
+    if (item[1] < 1 || item[1] > 10 || item[0] < 1) {
       console.log("out of borders");
       return false;
     }
   }
-  console.log(newPosition)
+
+  console.log(newPosition);
   currentElement.position = newPosition;
 }
 
@@ -63,8 +71,6 @@ function turnElement() {
   console.log(currentElement.position);
   generateElement(currentElement.position);
 }
-
-console.log(currentElement);
 
 function generateBoardArray() {
   let tempArray = [];
@@ -102,5 +108,5 @@ function generateBoard(boardArray) {
 }
 
 generateBoard(boardArray);
-// document.getElementById(5).className = "tile element";
+
 generateElement(currentElement.position);

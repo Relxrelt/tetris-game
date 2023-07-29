@@ -57,22 +57,23 @@ function rotate() {
   currentElement.position = newPosition;
 }
 
-
 function moveDown() {
   let newPosition = JSON.parse(JSON.stringify(currentElement.position));
   for (const item of newPosition) {
-    item[1] += 10
+    item[0] += 1;
   }
-  return newPosition
+  return newPosition;
 }
 
 function moveHorizontal(direction) {
-  //Direction is a member of [-1,1] 
+  //Direction is a member of [-1,1]
   let newPosition = JSON.parse(JSON.stringify(currentElement.position));
 
   for (const item of newPosition) {
-    item[0] += direction
+    item[1] += direction;
   }
+
+  return newPosition;
 }
 function generateElement(array) {
   for (let i = 0; i < array.length; i++) {
@@ -102,7 +103,8 @@ function moveElementDown() {
     let id = `${row}:${column}`;
     document.getElementById(`${row}:${column}`).className = "tile";
   }
-  moveDown();
+  currentElement.position = moveDown();
+  console.log(currentElement.position);
   console.log(currentElement.position);
   generateElement(currentElement.position);
 }
@@ -114,7 +116,7 @@ function moveElementLeft() {
     let id = `${row}:${column}`;
     document.getElementById(`${row}:${column}`).className = "tile";
   }
-  moveHorizontal(-1);
+  currentElement.position = moveHorizontal(-1);
   console.log(currentElement.position);
   generateElement(currentElement.position);
 }
@@ -126,7 +128,7 @@ function moveElementRight() {
     let id = `${row}:${column}`;
     document.getElementById(`${row}:${column}`).className = "tile";
   }
-  moveHorizontal(1);
+  currentElement.position = moveHorizontal(1);
   console.log(currentElement.position);
   generateElement(currentElement.position);
 }
@@ -174,7 +176,7 @@ function gameLoop() {
 
   setTimeout(() => {
     // CODE THAT WILL BE RUN EVERY TICK
-
+    moveElementDown();
     gameLoop();
   }, tickDelay);
 }

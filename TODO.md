@@ -4,7 +4,8 @@
 [] Implement move down
 [] Implement collision logic
 [] Improve rotate function to check if the rotation collides with other elements.
-[] Make game loop
+[x] Make game loop
+[] Make start game function
 [] Implement hold container
 [] Implement next container
 [] Implement score container
@@ -12,6 +13,6 @@
 [] Implement "quick-drop"
 [] Implement insta-drop
 [] Random tetromino colour
-[]Implement end game
+[] Implement end game
 [] Pause game
 [] See high scores

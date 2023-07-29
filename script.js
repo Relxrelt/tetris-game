@@ -51,6 +51,23 @@ function rotate() {
   currentElement.position = newPosition;
 }
 
+
+function moveDown() {
+  let newPosition = JSON.parse(JSON.stringify(currentElement.position));
+  for (const item of newPosition) {
+    item[1] += 10
+  }
+  return newPosition
+}
+
+function moveHorizontal(direction) {
+  //Direction is a member of [-1,1] 
+  let newPosition = JSON.parse(JSON.stringify(currentElement.position));
+
+  for (const item of newPosition) {
+    item[0] += direction
+  }
+}
 function generateElement(array) {
   for (let i = 0; i < array.length; i++) {
     let row = array[i][0];
@@ -68,6 +85,42 @@ function turnElement() {
     document.getElementById(`${row}:${column}`).className = "tile";
   }
   rotate();
+  console.log(currentElement.position);
+  generateElement(currentElement.position);
+}
+
+function moveElementDown() {
+  for (let i = 0; i < currentElement.position.length; i++) {
+    let row = currentElement.position[i][0];
+    let column = currentElement.position[i][1];
+    let id = `${row}:${column}`;
+    document.getElementById(`${row}:${column}`).className = "tile";
+  }
+  moveDown();
+  console.log(currentElement.position);
+  generateElement(currentElement.position);
+}
+
+function moveElementLeft() {
+  for (let i = 0; i < currentElement.position.length; i++) {
+    let row = currentElement.position[i][0];
+    let column = currentElement.position[i][1];
+    let id = `${row}:${column}`;
+    document.getElementById(`${row}:${column}`).className = "tile";
+  }
+  moveHorizontal(-1);
+  console.log(currentElement.position);
+  generateElement(currentElement.position);
+}
+
+function moveElementRight() {
+  for (let i = 0; i < currentElement.position.length; i++) {
+    let row = currentElement.position[i][0];
+    let column = currentElement.position[i][1];
+    let id = `${row}:${column}`;
+    document.getElementById(`${row}:${column}`).className = "tile";
+  }
+  moveHorizontal(1);
   console.log(currentElement.position);
   generateElement(currentElement.position);
 }

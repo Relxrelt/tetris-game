@@ -3,66 +3,47 @@ let boardArray = generateBoardArray();
 class TShape {
   constructor(
     position = [
-      [6, 5],
-      [6, 6],
-      [6, 7],
-      [7, 6],
+      [5, 6],
+      [5, 7],
+      [5, 8],
+      [4, 7],
     ],
     isMoving = true,
-    rotationCount = 0
+    pivotIndex = 1
   ) {
     this.position = position;
     this.isMoving = isMoving;
-    this.rotationCount = rotationCount;
-  }
-
-  rotate() {
-    if (!this.rotationCount) {
-      console.log("hey");
-
-      let popped = this.position.splice(2, 1)[0];
-      popped[0] -= 1;
-      popped[1] -= 1;
-
-      this.position.unshift(popped);
-      this.rotationCount += 1;
-    } else if (this.rotationCount === 1) {
-      let popped = this.position.splice(3, 1)[0];
-      popped[0] -= 1;
-      popped[1] += 1;
-      this.position.push(popped);
-      this.rotationCount += 1;
-    } else if (this.rotationCount === 2) {
-      let popped = this.position.splice(1, 1)[0];
-      popped[0] += 1;
-      popped[1] += 1;
-      this.position.push(popped);
-      this.rotationCount += 1;
-    } else if (this.rotationCount === 3) {
-      let popped = this.position.splice(0, 1)[0];
-      popped[0] += 1;
-      popped[1] -= 1;
-      this.position.unshift(popped);
-      this.rotationCount = 0;
-    }
-
-    return this.position;
+    this.pivotIndex = pivotIndex;
   }
 }
 
 let currentElement = new TShape();
 
-function turnElement() {
-  let array = currentElement.position;
-  for (let i = 0; i < array.length; i++) {
-    let row = array[i][0];
-    let column = array[i][1];
-    let id = `${row}:${column}`;
-    document.getElementById(`${row}:${column}`).className = "tile";
+function rotate() {
+  let tempArray = JSON.parse(JSON.stringify(currentElement.position));
+  let pivotX = currentElement.position[currentElement.pivotIndex][0];
+  let pivotY = currentElement.position[currentElement.pivotIndex][1];
+  let isPossible = true;
+  for (let i = 0; i < tempArray.length; i++) {
+    tempArray[i][0] -= pivotX;
+    tempArray[i][1] -= pivotY;
+
+    let tempVariable = tempArray[i][0];
+    tempArray[i][0] = tempArray[i][1] * 1;
+    tempArray[i][1] = tempVariable * -1;
+
+    tempArray[i][0] += pivotX;
+    tempArray[i][1] += pivotY;
+
+    if (tempArray[i][1] < 1 || tempArray[i][1] > 10) {
+      console.log("out of borders");
+      return false;
+    }
   }
-  generateElement(currentElement.rotate());
-  console.log(currentElement.position);
+
+  currentElement.position = tempArray;
 }
+
 function generateElement(array) {
   for (let i = 0; i < array.length; i++) {
     let row = array[i][0];
@@ -70,6 +51,18 @@ function generateElement(array) {
     let id = `${row}:${column}`;
     document.getElementById(`${row}:${column}`).className = "tile element";
   }
+}
+
+function turnElement() {
+  for (let i = 0; i < currentElement.position.length; i++) {
+    let row = currentElement.position[i][0];
+    let column = currentElement.position[i][1];
+    let id = `${row}:${column}`;
+    document.getElementById(`${row}:${column}`).className = "tile";
+  }
+  rotate();
+  console.log(currentElement.position);
+  generateElement(currentElement.position);
 }
 
 console.log(currentElement);

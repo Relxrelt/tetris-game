@@ -1,5 +1,11 @@
 let boardArray = generateBoardArray();
 
+let tickDelay = 1000; // Initial value is 1 tick per 1000ms, so 1 tick a second
+
+// Default value is false, when game is started set it to true and when it is set to false during the gameloop, the gameloop will exit.
+
+let gameState = false;
+
 const positions = {
   I: [[]],
   J: [[]],
@@ -105,6 +111,19 @@ function generateBoard(boardArray) {
   }
 
   container.innerHTML = board;
+}
+
+function gameLoop() {
+  if (!gameState) {
+    alert("Game Over");
+    return;
+  }
+
+  setTimeout(() => {
+    // CODE THAT WILL BE RUN EVERY TICK
+
+    gameLoop();
+  }, tickDelay);
 }
 
 generateBoard(boardArray);

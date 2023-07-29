@@ -20,28 +20,27 @@ class TShape {
 let currentElement = new TShape();
 
 function rotate() {
-  let tempArray = JSON.parse(JSON.stringify(currentElement.position));
-  let pivotX = currentElement.position[currentElement.pivotIndex][0];
-  let pivotY = currentElement.position[currentElement.pivotIndex][1];
-  let isPossible = true;
-  for (let i = 0; i < tempArray.length; i++) {
-    tempArray[i][0] -= pivotX;
-    tempArray[i][1] -= pivotY;
+  let newPosition = JSON.parse(JSON.stringify(currentElement.position));
+  let pivot = currentElement.position[currentElement.pivotIndex];
+  for (const item of newPosition) {
+    item[0] -= pivot[0];
+    item[1] -= pivot[1];
 
-    let tempVariable = tempArray[i][0];
-    tempArray[i][0] = tempArray[i][1] * 1;
-    tempArray[i][1] = tempVariable * -1;
 
-    tempArray[i][0] += pivotX;
-    tempArray[i][1] += pivotY;
+    let tempVariable = item[0];
+    item[0] = item[1];
+    item[1] = -tempVariable;
 
-    if (tempArray[i][1] < 1 || tempArray[i][1] > 10) {
+    item[0] += pivot[0];
+    item[1] += pivot[1];
+
+    if (item[1] < 1 || item[1] > 10) {
       console.log("out of borders");
       return false;
     }
   }
-
-  currentElement.position = tempArray;
+  console.log(newPosition)
+  currentElement.position = newPosition;
 }
 
 function generateElement(array) {

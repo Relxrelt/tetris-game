@@ -11,5 +11,6 @@
 [] Implement "quick-drop"
 [] Implement insta-drop
 [] Random tetromino colour
+[]Implement end game
 [] Pause game
 [] See high scores

@@ -3,6 +3,7 @@
 [] Implement move horizontal
 [] Implement move down
 [] Implement collision logic
+[] Improve rotate function to check if the rotation collides with other elements.
 [] Make game loop
 [] Implement hold container
 [] Implement next container
